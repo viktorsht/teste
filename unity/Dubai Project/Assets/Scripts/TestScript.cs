@@ -1,3 +1,4 @@
+using FlutterUnityIntegration;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -43,5 +44,11 @@ public class TestScript : MonoBehaviour
     {
         float value = float.Parse(message);
         _SetSize(value);
+    }
+
+    public void CallBackFlutter()
+    {
+        Debug.Log("Sending log to Flutter: Teste flutter");
+        UnityMessageManager.Instance.SendMessageToFlutter("Flutter");
     }
 }
