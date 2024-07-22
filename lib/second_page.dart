@@ -61,7 +61,7 @@ class UnityTestingState extends State<UnityTestingWrapper>
                         },
                         value: _sliderValue,
                         min: 0,
-                        max: 20,
+                        max: 100,
                       ),
                     ],
                   ),
@@ -72,15 +72,15 @@ class UnityTestingState extends State<UnityTestingWrapper>
         ),
     );
   }
-    void onUnityCreated(controller) {
+  
+  void onUnityCreated(controller) {
     setState(() {
       _unityWidgetController = controller;
     });
   }
 
-    void setRotationSpeed(String speed) {
-      setState(() {
-        _unityWidgetController.postMessage('Cube','SetRotationSpeed',speed);
-      });
+  void setRotationSpeed(String speed) {
+    _unityWidgetController.postMessage('Cube','SetRotationSpeed',speed);
+    setState(() {});
   }
 }
