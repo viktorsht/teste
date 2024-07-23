@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using TMPro;
+using System.Globalization;
 
 public class TestScript : MonoBehaviour
 {
     [SerializeField] private float size = 1f;
     [SerializeField] private float rotationSpeed = 0f;
+
+    public TMP_Text text;
 
     [SerializeField]
     private GameObject MainObject;
@@ -35,14 +39,22 @@ public class TestScript : MonoBehaviour
         this.rotationSpeed = rotationSpeed;
     }
 
-    public void SetRotationSpeed(string message)
+    /*public void SetRotationSpeed(string message)
     {
+        text.text = message;
         float value = float.Parse(message);
         _SetRotationSpeed(value);
+    }*/
+    public void SetRotationSpeed(string message)
+    {
+        //float value = float.Parse(message);
+        float value = float.Parse(message, CultureInfo.InvariantCulture.NumberFormat);
+        _SetRotationSpeed(value);
+        //RotateAmount = new Vector3(value, value, value);
     }
     public void SetSize(string message)
     {
-        float value = float.Parse(message);
+        float value = float.Parse(message, CultureInfo.InvariantCulture.NumberFormat);
         _SetSize(value);
     }
 
@@ -50,5 +62,10 @@ public class TestScript : MonoBehaviour
     {
         Debug.Log("Sending log to Flutter: Teste flutter");
         UnityMessageManager.Instance.SendMessageToFlutter("Flutter");
+    }
+
+    public void IncreaseCubeSpeed() {
+        _SetRotationSpeed(GetRotationSpeed() + 1);
+        UnityMessageManager.Instance.SendMessageToFlutter(GetRotationSpeed().ToString());
     }
 }
